@@ -1,0 +1,205 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "irrigation": "Irrigation Planner",
+    "waterTable": "Water Table",
+    "credits": "My Credits",
+    "history": "History",
+    "schemes": "Government Schemes",
+    "support": "Help & Support",
+    "settings": "Settings",
+    "logout": "Logout",
+    "myProfile": "My Profile",
+    "language": "Language"
+  },
+  "history": {
+    "title": "Farming History & Analytics",
+    "stats": {
+      "waterAvailability": "Avg. Water Availability",
+      "waterSaved": "Total Water Saved",
+      "costEfficiency": "Cost Efficiency",
+      "bufferStock": "Buffer Stock Utilized"
+    },
+    "comparison": {
+      "title": "Performance Comparison",
+      "metric": "Metric",
+      "oldPlan": "Old Plan",
+      "newPlan": "New Plan",
+      "impact": "Impact"
+    },
+    "list": {
+      "title": "Previous Plans",
+      "all": "All",
+      "kharif": "Kharif",
+      "rabi": "Rabi",
+      "openPlan": "Open Plan"
+    }
+  },
+  "planner": {
+    "title": "Smart Irrigation Planner",
+    "subtitle": "Data-driven water management for sustainable farming",
+    "farmArea": "Farm Area",
+    "cropDetails": "Crop Details",
+    "season": "Season",
+    "soilTexture": "Soil Texture",
+    "availability": "Availability Schedule",
+    "waterSources": "Water Sources",
+    "generate": "Generate My Schedule",
+    "units": {
+      "acres": "Acres",
+      "hectares": "Hectares",
+      "sqft": "Sq Ft"
+    },
+    "seasons": {
+      "kharif": "Kharif",
+      "rabi": "Rabi",
+      "zaid": "Zaid"
+    },
+    "soilTypes": {
+      "loamy": "Loamy",
+      "sandy": "Sandy",
+      "clay": "Clay",
+      "silt": "Silt"
+    }
+  },
+  "support": {
+    "title": "Support",
+    "subtitle": "We're here to help you optimize your water usage.",
+    "expert": {
+      "title": "Contact an Expert",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "messageLabel": "Message",
+      "messagePlaceholder": "How can we help you today?",
+      "send": "Send Message",
+      "success": "Thank you! Your message has been sent to our experts."
+    },
+    "kb": {
+      "title": "Knowledge Base",
+      "articles": [
+        "How to calibrate soil sensors",
+        "Understanding Water Credits",
+        "Dynamic vs Smart Schedules"
+      ]
+    },
+    "direct": {
+      "title": "Direct Contact",
+      "helpline": "Helpline: +91 1800-JUL-SAN",
+      "hours": "Hours: Mon-Sat, 9AM - 6PM"
+    }
+  },
+  "settings": {
+    "title": "Account Settings",
+    "profile": {
+      "title": "Profile Information",
+      "name": "Full Name",
+      "email": "Email Address"
+    },
+    "language": {
+      "title": "Language Preferences",
+      "description": "Select your preferred language for the application interface."
+    }
+  },
+  "dashboard": {
+    "title": "Field Dashboard",
+    "subtitle": "Real-time monitoring and smart insights for your sustainable farm.",
+    "weather": {
+      "humidity": "Relative Humidity",
+      "temperature": "Temperature",
+      "windSpeed": "Wind Speed",
+      "precipitation": "Precipitation (7d)",
+      "forecastTitle": "7-Day Forecast Analysis",
+      "error": "Failed to load weather data"
+    },
+    "actions": {
+      "title": "Quick Actions",
+      "viewAll": "View All Features"
+    }
+  },
+  "watertable": {
+    "title": "Water Distribution Table",
+    "subtitle": "Daily precision irrigation allocation and timing schedule.",
+    "stats": {
+      "totalVolume": "Total Volume",
+      "farmersToday": "Farmers Today"
+    },
+    "controls": {
+      "searchPlaceholder": "Search farmer name...",
+      "filter": "Filter",
+      "export": "Export",
+      "refresh": "Refresh"
+    },
+    "table": {
+      "farmerId": "Farmer ID",
+      "farmerName": "Farmer Name",
+      "volume": "Volume (Litres)",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "status": "Status",
+      "action": "Action",
+      "state": {
+        "irrigating": "Irrigating",
+        "scheduled": "Scheduled"
+      }
+    },
+    "loading": "Updating Schedule..."
+  },
+  "schemes": {
+    "title": "Government Schemes",
+    "subtitle": "Official policies and subsidies for smart irrigation and water management.",
+    "card": {
+      "visit": "Visit Official Portal"
+    }
+  },
+  "solution": {
+    "title": "Solution",
+    "cards": {
+      "gauge": "Water Availability vs Requirement",
+      "recommendTitle": "Recommended Schedule",
+      "instructionsTitle": "Irrigation Plan by Growth Stage",
+      "altMethod": "Alternative Method"
+    },
+    "gauge": {
+      "deficit": "Deficit",
+      "low": "Low Availability",
+      "current": "Current Availability"
+    },
+    "recommend": {
+      "hours": "Hours/Day",
+      "liters": "Total Liters/Month",
+      "target": "Crop Target"
+    },
+    "growthStages": {
+      "initial": "Seeding & Germination",
+      "vegetative": "Vegetative Growth",
+      "flowering": "Flowering & Grain Filling",
+      "maturation": "Maturation"
+    }
+  },
+  "profile": {
+    "title": "My Profile",
+    "subtitle": "Manage your personal information and farm configuration.",
+    "labels": {
+      "fullName": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "location": "Village / Location",
+      "villagePlaceholder": "Village Name",
+      "farmSize": "Farm Size (Acres)",
+      "irrigationType": "Irrigation Type"
+    },
+    "buttons": {
+      "locate": "Auto-fetch current location",
+      "save": "Save Changes",
+      "saving": "Saving..."
+    },
+    "status": {
+      "member": "Member",
+      "admin": "Administrator",
+      "joined": "Joined"
+    },
+    "success": "Profile updated successfully!",
+    "error": "Failed to update profile",
+    "loadError": "Failed to load profile data"
+  }
+}

@@ -1,0 +1,132 @@
+.schemes-container {
+  padding: 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: transparent;
+}
+
+.schemes-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 3.5rem;
+  padding-left: 1rem;
+}
+
+.schemes-header h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0369a1;
+  margin: 0;
+  letter-spacing: -1px;
+}
+
+.schemes-header p {
+  color: #64748b;
+  font-size: 1.1rem;
+  margin-top: 0.25rem;
+}
+
+.schemes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.scheme-card {
+  background: white;
+  border-radius: 24px;
+  padding: 2rem;
+  text-decoration: none;
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.scheme-tag {
+  display: inline-block;
+  background: #f0f9ff;
+  color: #0ea5e9;
+  padding: 0.4rem 1rem;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  width: fit-content;
+}
+
+.scheme-link-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  height: 3.8rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.scheme-desc {
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  flex-grow: 1;
+}
+
+.scheme-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f1f5f9;
+}
+
+.visit-text {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0ea5e9;
+}
+
+.link-icon-box {
+  width: 36px;
+  height: 36px;
+  background: #f0f9ff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0ea5e9;
+  transition: all 0.2s ease;
+}
+
+.scheme-card:hover .link-icon-box {
+  background: #0ea5e9;
+  color: white;
+  transform: rotate(15deg);
+}
+
+@media (max-width: 768px) {
+  .schemes-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .schemes-header {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+  
+  .schemes-header h1 {
+    font-size: 2rem;
+  }
+}

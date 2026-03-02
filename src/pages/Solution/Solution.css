@@ -1,0 +1,398 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+.solution-container {
+  padding: 2.5rem 5rem;
+  background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
+  min-height: 100vh;
+  font-family: 'Outfit', sans-serif;
+  color: #334155;
+}
+
+.solution-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+.logo-placeholder {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0ea5e9;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.contact-chip {
+  background: #0ea5e9;
+  color: white;
+  border: none;
+  padding: 0.9rem 2.2rem;
+  border-radius: 99px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.25);
+  transition: all 0.3s ease;
+}
+
+.title-wrapper {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.main-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #0369a1;
+  letter-spacing: -2px;
+}
+
+.solution-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.top-row-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+.bottom-row-grid {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 2.5rem;
+}
+
+.white-card {
+  background: white;
+  border-radius: 32px;
+  padding: 3rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.4);
+}
+
+.card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #0369a1;
+  margin-bottom: 2rem;
+  letter-spacing: -0.5px;
+}
+
+/* Gauge Styles */
+.gauge-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 2.5rem 0;
+}
+
+.deficit-circle {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.circular-chart {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.circle-bg {
+  stroke: #f1f5f9;
+  stroke-width: 2.8;
+}
+
+.circle {
+  stroke: #f43f5e;
+  stroke-width: 3.2;
+  stroke-linecap: round;
+}
+
+.percentage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.p-top {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1e293b;
+  line-height: 1;
+}
+
+.p-sub {
+  font-size: 0.9rem;
+  color: #64748b;
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+
+.avail-footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 2rem;
+  border-top: 1px solid #f1f5f9;
+  font-weight: 600;
+}
+
+.avail-val {
+  color: #f43f5e;
+  font-weight: 800;
+}
+
+/* Recommended Schedule */
+.schedule-box {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  margin-bottom: 4rem;
+}
+
+.s-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.icon-wrap {
+  width: 56px;
+  height: 56px;
+  background: white;
+  border: 1px solid #f1f5f9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+}
+
+.s-text {
+  text-align: center;
+}
+
+.s-text strong {
+  display: block;
+  font-size: 1.8rem;
+  color: #1e293b;
+  line-height: 1;
+}
+
+.s-text span {
+  font-size: 0.9rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.alert-banner {
+  background: #fff1f2;
+  border: 1px solid #fee2e2;
+  padding: 1.5rem;
+  border-radius: 12px;
+  display: flex;
+  gap: 1rem;
+}
+
+.alert-icon {
+  font-size: 1.25rem;
+}
+
+.alert-banner p {
+  color: #be123c;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* Irrigation Plan (Timeline) */
+.growth-section {
+  padding: 3.5rem;
+}
+
+.section-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0369a1;
+  margin-bottom: 3.5rem;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 3rem;
+}
+
+.timeline-marker-box {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.timeline-item:not(:last-child) .timeline-marker-box::after {
+  content: '';
+  position: absolute;
+  top: 1.5rem;
+  bottom: -0.5rem;
+  width: 2px;
+  background: #f1f5f9;
+}
+
+.timeline-marker {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background: white;
+  border: 4px solid #0ea5e9;
+  z-index: 1;
+}
+
+.timeline-content {
+  padding-bottom: 4rem;
+  flex: 1;
+}
+
+.timeline-item:last-child .timeline-content {
+  padding-bottom: 0;
+}
+
+.timeline-content h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.75rem;
+}
+
+.stage-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.days {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.method-pill {
+  padding: 0.4rem 1rem;
+  border-radius: 99px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.desc-text {
+  color: #475569;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* Alternative Method Card */
+.alt-method-card {
+  margin-bottom: 2.5rem;
+}
+
+.alt-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.alt-icon-box {
+  width: 64px;
+  height: 64px;
+  background: #f0fdf4;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alt-text strong {
+  display: block;
+  font-size: 1.2rem;
+  color: #1e293b;
+  margin-bottom: 0.3rem;
+}
+
+.alt-text span {
+  font-size: 0.9rem;
+  color: #64748b;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Source Card */
+.source-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.source-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border-radius: 20px;
+  border: 1px solid #f1f5f9;
+}
+
+.source-info strong {
+  display: block;
+  font-size: 1.1rem;
+  color: #1e293b;
+  margin-bottom: 0.2rem;
+}
+
+.source-info span {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.map-icon-box {
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 1100px) {
+  .bottom-row-grid {
+    grid-template-columns: 1fr;
+  }
+}
