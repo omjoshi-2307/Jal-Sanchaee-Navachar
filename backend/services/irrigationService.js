@@ -1,39 +1,71 @@
-export const calculateIrrigation = (data) => {
-  // Ensure area is a number
-  const area = parseFloat(data.area) || 0;
-  const unit = data.unit || 'acres';
-  const cropName = data.cropName || 'default';
-  const season = data.season || 'rabi';
-  const soilType = data.soilType || 'loamy';
+export class IrrigationInputError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'IrrigationInputError';
+  }
+}
 
-  // Normalize area to acres
-  const areaInAcres = unit === 'sqft' ? area / 43560 : area;
-  
-  // Base logic
-  const baseWaterPerAcre = 5000; // liters per week
-  const cropFactor = cropName.toLowerCase().includes('wheat') ? 1.2 : 
-                     cropName.toLowerCase().includes('rice') ? 1.8 : 1.0;
-  const seasonalMultiplier = season === 'kharif' ? 0.8 : (season === 'zaid' ? 1.5 : 1.1);
-  const soilAdjustment = soilType === 'sandy' ? 1.4 : (soilType === 'clay' ? 0.7 : 1.0);
+const normalizeToken = (value) => String(value).trim().toLowerCase().replace(/[\s_-]+/g, '');
+const AREA_TO_ACRES = {
+  acre: 1,
+  acres: 1,
+  hectare: 2.47105,
+  hectares: 2.47105,
+  ha: 2.47105,
+  sqft: 1 / 43560,
+  squarefoot: 1 / 43560,
+  squarefeet: 1 / 43560,
+};
 
+export const calculateIrrigation = (data, now = new Date()) => {
+  if (!data || typeof data !== 'object' || Array.isArray(data)) {
+    throw new IrrigationInputError('Form data must be an object.');
+  }
+  const areaValue = data.area;
+  if ((typeof areaValue !== 'number' && typeof areaValue !== 'string') ||
+      (typeof areaValue === 'string' && !areaValue.trim())) {
+    throw new IrrigationInputError('Farm area must be a positive number.');
+  }
+  const area = Number(areaValue);
+  if (!Number.isFinite(area) || area <= 0) {
+    throw new IrrigationInputError('Farm area must be a positive number.');
+  }
+
+  const unit = normalizeToken(data.unit ?? 'acres');
+  const conversion = AREA_TO_ACRES[unit];
+  if (conversion === undefined) {
+    throw new IrrigationInputError('Unsupported farm-area unit. Use acres, hectares, or square feet.');
+  }
+  const areaInAcres = area * conversion;
+  const cropName = String(data.cropName ?? 'default').trim() || 'default';
+  const season = normalizeToken(data.season ?? 'rabi');
+  const soilType = normalizeToken(data.soilType ?? 'loamy');
+  const seasonalMultipliers = { kharif: 0.8, rabi: 1.1, zaid: 1.5 };
+  if (seasonalMultipliers[season] === undefined) {
+    throw new IrrigationInputError('Unsupported season. Use Kharif, Rabi, or Zaid.');
+  }
+  if (!['sandy', 'clay', 'loamy', 'silt'].includes(soilType)) {
+    throw new IrrigationInputError('Unsupported soil type. Use Sandy, Clay, Loamy, or Silt.');
+  }
+
+  const baseWaterPerAcre = 5000;
+  const cropKey = cropName.toLowerCase();
+  const cropFactor = cropKey.includes('wheat') ? 1.2 : cropKey.includes('rice') ? 1.8 : 1.0;
+  const seasonalMultiplier = seasonalMultipliers[season];
+  const soilAdjustment = soilType === 'sandy' ? 1.4 : soilType === 'clay' ? 0.7 : 1.0;
   const totalWater = areaInAcres * baseWaterPerAcre * cropFactor * seasonalMultiplier * soilAdjustment;
   const frequency = soilType === 'sandy' ? 'Daily' : 'Twice a week';
-
-  // Generate 4-week schedule
-  const schedule = [];
-  const now = new Date();
-  for (let i = 0; i < 4; i++) {
+  const schedule = Array.from({ length: 4 }, (_, index) => {
     const date = new Date(now);
-    date.setDate(now.getDate() + (i * 7));
-    schedule.push({
-      week: i + 1,
+    date.setDate(date.getDate() + index * 7);
+    return {
+      week: index + 1,
       date: date.toISOString().split('T')[0],
       waterQuantityLiters: Math.round(totalWater / 4),
       frequency,
-      instructions: `Water in the early ${i % 2 === 0 ? 'morning' : 'evening'} for best results.`
-    });
-  }
-
+      instructions: \`Water in the early \${index % 2 === 0 ? 'morning' : 'evening'} for best results.\`,
+    };
+  });
   return {
     summary: {
       cropName,
@@ -43,9 +75,9 @@ export const calculateIrrigation = (data) => {
         cropFactor,
         seasonalMultiplier,
         soilAdjustment,
-        areaInAcres: areaInAcres.toFixed(2)
-      }
+        areaInAcres: areaInAcres.toFixed(2),
+      },
     },
-    schedule
+    schedule,
   };
 };

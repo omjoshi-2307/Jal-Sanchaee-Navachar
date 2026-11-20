@@ -1,6 +1,6 @@
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../config/firebase.js";
-import { calculateIrrigation } from "../services/irrigationService.js";
+import { calculateIrrigation, IrrigationInputError } from "../services/irrigationService.js";
 
 export const generateSchedule = async (req, res) => {
   const { userId, formData } = req.body;
@@ -36,7 +36,10 @@ export const generateSchedule = async (req, res) => {
     })();
 
   } catch (error) {
+    if (error instanceof IrrigationInputError) {
+      return res.status(400).json({ error: error.message });
+    }
     console.error('Error generating schedule:', error);
-    res.status(500).json({ error: `Internal Server Error: ${error.message}` });
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 };
