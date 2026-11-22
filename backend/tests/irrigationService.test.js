@@ -40,3 +40,16 @@ test('rejects non-positive and non-numeric areas or unsupported selections', () 
   ];
   for (const input of invalid) assert.throws(() => calculateIrrigation(input, fixedDate), IrrigationInputError);
 });
+
+test('rejects inherited unit and season keys', () => {
+  for (const unit of ['constructor', 'toString', 'valueOf']) {
+    assert.throws(() => calculateIrrigation({ area: 1, unit }, fixedDate), IrrigationInputError, unit);
+  }
+  for (const season of ['constructor', 'toString', 'valueOf']) {
+    assert.throws(() => calculateIrrigation({ area: 1, unit: 'acres', season }, fixedDate), IrrigationInputError, season);
+  }
+});
+test('rejects overflow in converted area and water totals', () => {
+  assert.throws(() => calculateIrrigation({ area: 1e308, unit: 'hectares' }, fixedDate), IrrigationInputError);
+  assert.throws(() => calculateIrrigation({ area: 1e308, unit: 'acres' }, fixedDate), IrrigationInputError);
+});
