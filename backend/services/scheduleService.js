@@ -1,3 +1,5 @@
+import { minutesToTimeString } from '../utils/dateUtils.js';
+
 export class ScheduleInputError extends TypeError {
   constructor(message) {
     super(message);
@@ -66,14 +68,3 @@ export function generateDailySchedule(farmers) {
   return schedule;
 }
 
-function minutesToTimeString(minutesFromStart) {
-  const baseHour = 6; // irrigation starts at 6 AM
-  const totalMinutes = baseHour * 60 + minutesFromStart;
-
-  const hours = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
-
-  return `${hours.toString().padStart(2, '0')}:${minutes
-    .toString()
-    .padStart(2, '0')}`;
-}
