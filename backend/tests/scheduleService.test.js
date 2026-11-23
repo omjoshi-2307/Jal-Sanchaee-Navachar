@@ -36,12 +36,12 @@ test('allows a farmer to use the complete 12-hour irrigation window', () => {
 
 test('keeps FIFO order and stops when the next farmer cannot fit', () => {
   const schedule = generateDailySchedule([
-    { id: 'farmer-1', name: 'Farmer One', litres_day: 11000 },
+    { id: 'farmer-1', name: 'Farmer One', litres_day: 11500 },
     { id: 'farmer-2', name: 'Farmer Two', litres_day: 1000 }
   ]);
 
   assert.deepEqual(schedule.map(({ farmerId }) => farmerId), ['farmer-1']);
-  assert.equal(schedule[0].endTime, '17:00');
+  assert.equal(schedule[0].endTime, '17:30');
 });
 
 test('rejects malformed farmer lists and invalid daily water values', () => {
