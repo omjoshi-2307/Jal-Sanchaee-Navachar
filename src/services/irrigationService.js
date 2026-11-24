@@ -5,9 +5,11 @@ const API_URL = 'http://localhost:5000/api';
 export const irrigationService = {
   generateSchedule: async (userId, formData) => {
     try {
+      const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
       const response = await axios.post(`${API_URL}/irrigation/generate-schedule`, {
         userId,
-        formData
+        formData,
+        timeZone
       });
       return response.data.schedule;
     } catch (error) {

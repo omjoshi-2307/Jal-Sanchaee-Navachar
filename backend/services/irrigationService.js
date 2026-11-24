@@ -17,10 +17,49 @@ const AREA_TO_ACRES = {
   squarefeet: 1 / 43560,
 };
 
-export const calculateIrrigation = (data, now = new Date()) => {
+const getCalendarDateInTimeZone = (date, timeZone) => {
+  if (!(date instanceof Date) || !Number.isFinite(date.getTime())) {
+    throw new IrrigationInputError('Schedule date must be valid.');
+  }
+
+  let parts;
+  try {
+    parts = new Intl.DateTimeFormat('en-US', {
+      timeZone,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).formatToParts(date);
+  } catch {
+    throw new IrrigationInputError('A valid IANA time zone is required.');
+  }
+
+  const values = Object.fromEntries(parts.map(({ type, value }) => [type, value]));
+  const year = Number(values.year);
+  const month = Number(values.month);
+  const day = Number(values.day);
+  const calendarDate = new Date(0);
+  calendarDate.setUTCFullYear(year, month - 1, day);
+  calendarDate.setUTCHours(0, 0, 0, 0);
+
+  if (!Number.isFinite(calendarDate.getTime())) {
+    throw new IrrigationInputError('Schedule date must be valid.');
+  }
+  return calendarDate;
+};
+
+const formatCalendarDate = (date) => {
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+export const calculateIrrigation = (data, now = new Date(), timeZone = 'UTC') => {
   if (!data || typeof data !== 'object' || Array.isArray(data)) {
     throw new IrrigationInputError('Form data must be an object.');
   }
+  const startCalendarDate = getCalendarDateInTimeZone(now, timeZone);
   const areaValue = data.area;
   if ((typeof areaValue !== 'number' && typeof areaValue !== 'string') ||
       (typeof areaValue === 'string' && !areaValue.trim())) {
@@ -62,11 +101,11 @@ export const calculateIrrigation = (data, now = new Date()) => {
   }
   const frequency = soilType === 'sandy' ? 'Daily' : 'Twice a week';
   const schedule = Array.from({ length: 4 }, (_, index) => {
-    const date = new Date(now);
-    date.setDate(date.getDate() + index * 7);
+    const date = new Date(startCalendarDate);
+    date.setUTCDate(date.getUTCDate() + index * 7);
     return {
       week: index + 1,
-      date: date.toISOString().split('T')[0],
+      date: formatCalendarDate(date),
       waterQuantityLiters: Math.round(totalWater / 4),
       frequency,
       instructions: `Water in the early ${index % 2 === 0 ? 'morning' : 'evening'} for best results.`,
