@@ -15,7 +15,10 @@ function validateFarmers(farmers) {
     throw new ScheduleInputError('Farmers must be provided as an array.');
   }
 
-  farmers.forEach((farmer, index) => {
+  // Indexed iteration deliberately visits sparse slots, unlike Array#forEach.
+  for (let index = 0; index < farmers.length; index += 1) {
+    const farmer = farmers[index];
+
     if (!farmer || typeof farmer !== 'object' || Array.isArray(farmer)) {
       throw new ScheduleInputError(`Farmer at index ${index} must be an object.`);
     }
@@ -31,7 +34,7 @@ function validateFarmers(farmers) {
         `Farmer '${farmer.id}' must have a finite litres_day value greater than zero.`
       );
     }
-  });
+  }
 }
 
 export function generateDailySchedule(farmers) {
@@ -67,4 +70,3 @@ export function generateDailySchedule(farmers) {
 
   return schedule;
 }
-
