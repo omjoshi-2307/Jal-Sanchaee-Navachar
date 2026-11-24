@@ -32,6 +32,19 @@ test('returns four weekly schedule entries', () => {
   assert.deepEqual(result.schedule.map(item => item.date), ['2026-11-20', '2026-11-27', '2026-12-04', '2026-12-11']);
   assert.equal(result.schedule.length, 4);
 });
+test('keeps weekly schedule dates on the local calendar near UTC midnight', () => {
+  const previousTimeZone = process.env.TZ;
+  process.env.TZ = 'Asia/Kolkata';
+  try {
+    const justAfterLocalMidnight = new Date('2026-11-23T18:45:00.000Z');
+    const result = calculateIrrigation({ area: 1, unit: 'acres' }, justAfterLocalMidnight);
+    assert.deepEqual(result.schedule.map(item => item.date), ['2026-11-24', '2026-12-01', '2026-12-08', '2026-12-15']);
+  } finally {
+    if (previousTimeZone === undefined) delete process.env.TZ;
+    else process.env.TZ = previousTimeZone;
+  }
+});
+
 test('rejects non-positive and non-numeric areas or unsupported selections', () => {
   const invalid = [
     { area: 0, unit: 'acres' }, { area: -2, unit: 'acres' }, { area: 'bad', unit: 'acres' },

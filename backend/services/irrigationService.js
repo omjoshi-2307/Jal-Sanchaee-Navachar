@@ -17,6 +17,13 @@ const AREA_TO_ACRES = {
   squarefeet: 1 / 43560,
 };
 
+const formatLocalDate = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 export const calculateIrrigation = (data, now = new Date()) => {
   if (!data || typeof data !== 'object' || Array.isArray(data)) {
     throw new IrrigationInputError('Form data must be an object.');
@@ -66,7 +73,7 @@ export const calculateIrrigation = (data, now = new Date()) => {
     date.setDate(date.getDate() + index * 7);
     return {
       week: index + 1,
-      date: date.toISOString().split('T')[0],
+      date: formatLocalDate(date),
       waterQuantityLiters: Math.round(totalWater / 4),
       frequency,
       instructions: `Water in the early ${index % 2 === 0 ? 'morning' : 'evening'} for best results.`,
