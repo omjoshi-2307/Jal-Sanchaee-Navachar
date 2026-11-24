@@ -3,7 +3,7 @@ import { db } from "../config/firebase.js";
 import { calculateIrrigation, IrrigationInputError } from "../services/irrigationService.js";
 
 export const generateSchedule = async (req, res) => {
-  const { userId, formData } = req.body;
+  const { userId, formData, timeZone = 'UTC' } = req.body;
 
   console.log(`Received request for user: ${userId}`);
 
@@ -12,7 +12,7 @@ export const generateSchedule = async (req, res) => {
   }
 
   try {
-    const result = calculateIrrigation(formData);
+    const result = calculateIrrigation(formData, new Date(), timeZone);
     
     // Return result immediately
     res.json({

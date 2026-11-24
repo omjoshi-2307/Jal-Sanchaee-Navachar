@@ -32,17 +32,17 @@ test('returns four weekly schedule entries', () => {
   assert.deepEqual(result.schedule.map(item => item.date), ['2026-11-20', '2026-11-27', '2026-12-04', '2026-12-11']);
   assert.equal(result.schedule.length, 4);
 });
-test('keeps weekly schedule dates on the local calendar near UTC midnight', () => {
-  const previousTimeZone = process.env.TZ;
-  process.env.TZ = 'Asia/Kolkata';
-  try {
-    const justAfterLocalMidnight = new Date('2026-11-23T18:45:00.000Z');
-    const result = calculateIrrigation({ area: 1, unit: 'acres' }, justAfterLocalMidnight);
-    assert.deepEqual(result.schedule.map(item => item.date), ['2026-11-24', '2026-12-01', '2026-12-08', '2026-12-15']);
-  } finally {
-    if (previousTimeZone === undefined) delete process.env.TZ;
-    else process.env.TZ = previousTimeZone;
-  }
+test('uses the farmer time zone even when the backend runs in UTC', () => {
+  const justAfterIndiaMidnight = new Date('2026-11-23T18:45:00.000Z');
+  const indiaResult = calculateIrrigation({ area: 1, unit: 'acres' }, justAfterIndiaMidnight, 'Asia/Kolkata');
+  assert.deepEqual(indiaResult.schedule.map(item => item.date), ['2026-11-24', '2026-12-01', '2026-12-08', '2026-12-15']);
+
+  const utcResult = calculateIrrigation({ area: 1, unit: 'acres' }, justAfterIndiaMidnight, 'UTC');
+  assert.deepEqual(utcResult.schedule.map(item => item.date), ['2026-11-23', '2026-11-30', '2026-12-07', '2026-12-14']);
+});
+
+test('rejects unsupported schedule time zones', () => {
+  assert.throws(() => calculateIrrigation({ area: 1, unit: 'acres' }, fixedDate, 'Mars/Olympus'), IrrigationInputError);
 });
 
 test('rejects non-positive and non-numeric areas or unsupported selections', () => {
