@@ -68,6 +68,14 @@ This platform provides a comprehensive suite of tools for farmers to plan, monit
    npm run dev
    ```
 
+## Testing
+
+Run the irrigation calculation regression tests from the repository root:
+
+```bash
+npm test
+```
+
 ## 📁 Project Structure
 
 ```text
