@@ -9,12 +9,12 @@ export class ScheduleInputError extends TypeError {
 
 const PUMP_RATE_LPH = 1000; // litres per hour
 const IRRIGATION_WINDOW_MINUTES = 12 * 60; // 6AM–6PM
-
 function validateFarmers(farmers) {
   if (!Array.isArray(farmers)) {
     throw new ScheduleInputError('Farmers must be provided as an array.');
   }
 
+  const seenIds = new Set();
   // Indexed iteration deliberately visits sparse slots, unlike Array#forEach.
   for (let index = 0; index < farmers.length; index += 1) {
     const farmer = farmers[index];
@@ -25,6 +25,13 @@ function validateFarmers(farmers) {
     if (typeof farmer.id !== 'string' || !farmer.id.trim()) {
       throw new ScheduleInputError(`Farmer at index ${index} must have a non-empty id.`);
     }
+
+    const normalizedId = farmer.id.trim();
+    if (seenIds.has(normalizedId)) {
+      throw new ScheduleInputError(`Farmer at index ${index} has duplicate id '${normalizedId}'.`);
+    }
+    seenIds.add(normalizedId);
+
     if (
       typeof farmer.litres_day !== 'number' ||
       !Number.isFinite(farmer.litres_day) ||
@@ -36,12 +43,13 @@ function validateFarmers(farmers) {
     }
   }
 }
-
 export function generateDailySchedule(farmers) {
   validateFarmers(farmers);
 
+
   let currentMinute = 0;
   const schedule = [];
+
 
   for (const farmer of farmers) {
     // Allocate whole minutes without under-scheduling positive water requirements.

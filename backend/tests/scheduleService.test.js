@@ -68,3 +68,31 @@ test('rejects sparse farmer arrays with a typed validation error', () => {
       error.message === 'Farmer at index 0 must be an object.'
   );
 });
+
+test('rejects duplicate farmer IDs before allocation', () => {
+  const farmers = [
+    { id: 'farmer-1', name: 'Farmer One', litres_day: 1000 },
+    { id: 'farmer-1', name: 'Farmer One Again', litres_day: 500 },
+  ];
+
+  assert.throws(
+    () => generateDailySchedule(farmers),
+    (error) =>
+      error instanceof ScheduleInputError &&
+      error.message === "Farmer at index 1 has duplicate id 'farmer-1'."
+  );
+});
+
+test('rejects IDs duplicated after trimming whitespace', () => {
+  const farmers = [
+    { id: ' farmer-1 ', name: 'Farmer One', litres_day: 1000 },
+    { id: 'farmer-1', name: 'Farmer One Again', litres_day: 500 },
+  ];
+
+  assert.throws(
+    () => generateDailySchedule(farmers),
+    (error) =>
+      error instanceof ScheduleInputError &&
+      error.message === "Farmer at index 1 has duplicate id 'farmer-1'."
+  );
+});
