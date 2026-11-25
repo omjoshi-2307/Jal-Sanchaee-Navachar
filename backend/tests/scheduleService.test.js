@@ -56,3 +56,43 @@ test('rejects malformed farmer lists and invalid daily water values', () => {
     );
   }
 });
+
+test('rejects sparse farmer arrays with a typed validation error', () => {
+  const farmers = new Array(2);
+  farmers[1] = { id: 'farmer-2', name: 'Farmer Two', litres_day: 100 };
+
+  assert.throws(
+    () => generateDailySchedule(farmers),
+    (error) =>
+      error instanceof ScheduleInputError &&
+      error.message === 'Farmer at index 0 must be an object.'
+  );
+});
+
+test('rejects duplicate farmer IDs before allocation', () => {
+  const farmers = [
+    { id: 'farmer-1', name: 'Farmer One', litres_day: 1000 },
+    { id: 'farmer-1', name: 'Farmer One Again', litres_day: 500 },
+  ];
+
+  assert.throws(
+    () => generateDailySchedule(farmers),
+    (error) =>
+      error instanceof ScheduleInputError &&
+      error.message === "Farmer at index 1 has duplicate id 'farmer-1'."
+  );
+});
+
+test('rejects IDs duplicated after trimming whitespace', () => {
+  const farmers = [
+    { id: ' farmer-1 ', name: 'Farmer One', litres_day: 1000 },
+    { id: 'farmer-1', name: 'Farmer One Again', litres_day: 500 },
+  ];
+
+  assert.throws(
+    () => generateDailySchedule(farmers),
+    (error) =>
+      error instanceof ScheduleInputError &&
+      error.message === "Farmer at index 1 has duplicate id 'farmer-1'."
+  );
+});
